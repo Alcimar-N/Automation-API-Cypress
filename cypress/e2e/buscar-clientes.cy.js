@@ -1,12 +1,14 @@
 // A linha 2 serve para o cypress reconhecer os comandos
 /// <reference types="cypress"/> 
+require('dotenv').config();
+let UrlBase = process.env.BaseUrl
 
 describe('Buscar clientes', () =>{
     
     it('Buscar todos os clientes', () => {
         cy.request({
             method: 'GET',
-            url: 'http://127.0.0.1:1337/api/clientes/'
+            url: `${UrlBase}/api/clientes`
         }).then((resultado) => {
             expect(resultado.status).to.eql(200)
             
@@ -16,7 +18,7 @@ describe('Buscar clientes', () =>{
     it('Buscar cliente por id', () => {
         cy.request({
             method: 'GET',
-            url: 'http://127.0.0.1:1337/api/clientes/1'
+            url: `${UrlBase}/api/clientes/1`
         }).then((resultado) => {
             expect(resultado.status).to.eql(200)
             expect(resultado.body.data.id).to.eql(1)
